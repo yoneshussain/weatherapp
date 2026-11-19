@@ -12,7 +12,7 @@ export const setStatus = (element, text, isError = false) => {
 // TODO: renderCities(list, cities, onSelect) ska visa en knapp per ort med
 //       namn, region och land, till exempel "Lund, Skåne län, Sverige".
 //       Klick på knappen anropar onSelect(city).
-export const renderCities = (list, cities, onSelect) => {
+export const renderCities = (list, cities) => {
   // TODO
 
   cities.forEach((city) => {
@@ -35,7 +35,49 @@ export const renderCities = (list, cities, onSelect) => {
 //       vinden, describeWeather(weather.code) och de tre dagarna med max och min.
 export const renderWeather = (container, city, weather) => {
   // TODO
-  
+  const name = city.name;
+  const temp = weather.temprature;
+  const wind = weather.wind;
+  const code = describeWeather(weather.code);
+
+  const today = document.createElement("h2");
+  const nameElement = document.createElement("h4");
+  const tempElement = document.createElement("h4");
+  const windElement = document.createElement("p");
+  const weatherElement = document.createElement("p");
+
+  today.textContent = "Idag:";
+  nameElement.textContent = name;
+  tempElement.textContent = temp;
+  windElement.textContent = wind;
+  weatherElement.textContent = code;
+
+  container.append(
+    today,
+    nameElement,
+    tempElement,
+    windElement,
+    weatherElement,
+  );
+
+  weather.days.forEach((day) => {
+    const date = day.date;
+    const maxTemp = day.max;
+    const minTemp = day.min;
+    const code = describeWeather(day.code);
+
+    const dayElement = document.createElement("h2");
+    const maxElement = document.createElement("h4");
+    const minElement = document.createElement("h4");
+    const weatherElement = document.createElement("p");
+
+    dayElement.textContent = date;
+    maxElement.textContent = maxTemp;
+    minElement.textContent = minTemp;
+    weatherElement.textContent = code;
+
+    container.append(dayElement, maxElement, minElement, weatherElement);
+  });
 };
 
 // Steg 5

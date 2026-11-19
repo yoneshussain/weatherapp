@@ -57,9 +57,19 @@ form.addEventListener("submit", async (event) => {
 export const showWeather = async (city) => {
   // TODO: Visa weatherSection, sätt 'Hämtar vädret...' i weatherStatus,
   //       hämta med getWeather och rendera med renderWeather. Visa ett fel om det inte går.
+  cityList.innerHTML = "";
+  searching.innerHTML = "";
+  weatherSection.removeAttribute("hidden");
+  weatherStatus.textContent = "Hämtar väder...";
+  try {
+    const data = await getWeather(city.latitude, city.longitude);
+    console.log(data);
 
-  const data = await getWeather(city.latitude, city.longitude);
-  console.log(data);
+    renderWeather(weatherContainer, city, data);
+    weatherStatus.textContent = "";
+  } catch (error) {
+    weatherStatus.textContent = `Något gick fel, försök igen! (${error.message})`;
+  }
 };
 
 // Steg 5: favoriterna hämtas samtidigt när sidan laddas

@@ -31,6 +31,7 @@ form.addEventListener("submit", async (event) => {
   //       Fyra lägen: laddar, fel ('Något gick fel, försök igen'), tomt ('Hittade ingen ort som heter …')
   //       och lyckat (renderCities med showWeather som onSelect).
   searching.textContent = "Söker...";
+  cityList.innerHTML = "";
   searchStatus.appendChild(searching);
   try {
     const data = await searchCities(input.value);
@@ -43,7 +44,7 @@ form.addEventListener("submit", async (event) => {
       searching.textContent = `Hittade ingen ort som heter ${input.value}`;
     } else if (data.length > 0) {
       searching.textContent = "Hittade:";
-      renderCities(data);
+      renderCities(cityList, data);
     }
 
     input.value = "";
@@ -53,9 +54,12 @@ form.addEventListener("submit", async (event) => {
 });
 
 // Steg 4: visa vädret för en ort
-const showWeather = async (city) => {
+export const showWeather = async (city) => {
   // TODO: Visa weatherSection, sätt 'Hämtar vädret...' i weatherStatus,
   //       hämta med getWeather och rendera med renderWeather. Visa ett fel om det inte går.
+
+  const data = await getWeather(city.latitude, city.longitude);
+  console.log(data);
 };
 
 // Steg 5: favoriterna hämtas samtidigt när sidan laddas

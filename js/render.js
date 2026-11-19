@@ -1,6 +1,6 @@
 // render.js: skapar element. Ingen fetch här.
 import { describeWeather } from "./weather-codes.js";
-const cityList = document.querySelector("#cities");
+import { showWeather } from "./main.js";
 
 // Visa ett läge: laddar, fel eller lyckat
 export const setStatus = (element, text, isError = false) => {
@@ -14,26 +14,28 @@ export const setStatus = (element, text, isError = false) => {
 //       Klick på knappen anropar onSelect(city).
 export const renderCities = (list, cities, onSelect) => {
   // TODO
-  list.forEach((place) => {
-    const name = place.name;
-    const region = place.region;
-    const country = place.country;
+
+  cities.forEach((city) => {
+    const name = city.name;
+    const region = city.region;
+    const country = city.country;
 
     const fullText = `${name}, ${region}, ${country}`;
-
     const cityButton = document.createElement("button");
-
     cityButton.textContent = fullText;
+    list.appendChild(cityButton);
 
-    cityList.appendChild(cityButton);
+    cityButton.addEventListener("click", () => {
+      showWeather(city);
+    });
   });
 };
-
 // Steg 4
 // TODO: renderWeather(container, city, weather) ska visa ortens namn, temperaturen,
 //       vinden, describeWeather(weather.code) och de tre dagarna med max och min.
 export const renderWeather = (container, city, weather) => {
   // TODO
+  
 };
 
 // Steg 5

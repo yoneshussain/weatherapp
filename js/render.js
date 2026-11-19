@@ -1,10 +1,11 @@
 // render.js: skapar element. Ingen fetch här.
-import { describeWeather } from './weather-codes.js';
+import { describeWeather } from "./weather-codes.js";
+const cityList = document.querySelector("#cities");
 
 // Visa ett läge: laddar, fel eller lyckat
 export const setStatus = (element, text, isError = false) => {
   element.textContent = text;
-  element.classList.toggle('error', isError);
+  element.classList.toggle("error", isError);
 };
 
 // Steg 3
@@ -13,6 +14,19 @@ export const setStatus = (element, text, isError = false) => {
 //       Klick på knappen anropar onSelect(city).
 export const renderCities = (list, cities, onSelect) => {
   // TODO
+  list.forEach((place) => {
+    const name = place.name;
+    const region = place.region;
+    const country = place.country;
+
+    const fullText = `${name}, ${region}, ${country}`;
+
+    const cityButton = document.createElement("button");
+
+    cityButton.textContent = fullText;
+
+    cityList.appendChild(cityButton);
+  });
 };
 
 // Steg 4
